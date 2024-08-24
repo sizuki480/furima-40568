@@ -84,15 +84,15 @@ Things you may want to cover:
 
 
 ## shippingsテーブル
-| Column         | Type       | Options     |
-| -------------- | ---------- | ----------- |
-| post_code      | string     | null: false |
-| prefectures_id | integer    | null: false |
-| city           | string     | null: false |
-| address        | string     | null: false |
-| building       | string     |
-| tel            | string     | null: false |
-| buy            | references | null: false, foreign_key: true |
+| Column           | Type       | Options     |
+| ---------------- | ---------- | ----------- |
+| post_code        | string     | null: false |
+| shipping_area_id | integer    | null: false |
+| city             | string     | null: false |
+| address          | string     | null: false |
+| building         | string     |
+| tel              | string     | null: false |
+| buy              | references | null: false, foreign_key: true |
 
 ### Association
 
