@@ -37,6 +37,8 @@ Things you may want to cover:
 | encrypted_password | string | null: false |
 | last_name          | string | null: false |
 | first_name         | string | null: false |
+| last_name_kana     | string | null: false |
+| first_name_kana    | string | null: false |
 | birthday           | date   | null: false |
 
 ### Association
@@ -47,18 +49,18 @@ Things you may want to cover:
 
 
 ## itemsテーブル
-| Column        | Type       | Options     |
-| ------------- | ---------- | ----------- |
-| name          | string     | null: false |
-| explanation   | text       | null: false |
-| category      | references | null: false, foreign_key: true |
-| situation     | string     | null: false |
-| shipping_pay  | string     | null: false |
-| shipping_area | string     | null: false |
-| shipping_time | string     | null: false |
-| price         | string     | null: false |
-| sell_flag     | boolean    | default: false |
-<!-- 未購入：false   購入済：true -->
+| Column           | Type       | Options     |
+| ---------------- | ---------- | ----------- |
+| name             | string     | null: false |
+| explanation      | text       | null: false |
+| category_id      | integer    | null: false |
+| situation_id     | integer    | null: false |
+| shipping_pay_id  | integer    | null: false |
+| shipping_area_id | integer    | null: false |
+| shipping_time_id | integer    | null: false |
+| price            | integer    | null: false |
+| user             | references | null: false, foreign_key: true |
+
 
 <!-- ※イメージはActiveStorageで実装するため含まない -->
 
@@ -69,12 +71,10 @@ Things you may want to cover:
 
 
 ## buysテーブル
-| Column       | Type       | Options     |
-| ------------ | ---------- | ----------- |
-| sell_user_id | references | null: false, foreign_key: true |
-| buy_user_id  | references | null: false, foreign_key: true |
-| item_id      | references | null: false, foreign_key: true |
-| shipping_id  | references | null: false, foreign_key: true |
+| Column    | Type       | Options     |
+| --------- | ---------- | ----------- |
+| item      | references | null: false, foreign_key: true |
+| user      | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -84,15 +84,15 @@ Things you may want to cover:
 
 
 ## shippingsテーブル
-| Column      | Type       | Options     |
-| ----------- | ---------- | ----------- |
-| post_code   | integer    | null: false |
-| prefectures | references | null: false, foreign_key: true |
-| city        | references | null: false, foreign_key: true |
-| address     | string     | null: false |
-| building    | string     |
-| tel         | integer    | null: false |
-| biys_id     | references | null: false, foreign_key: true |
+| Column         | Type       | Options     |
+| -------------- | ---------- | ----------- |
+| post_code      | string     | null: false |
+| prefectures_id | integer    | null: false |
+| city           | string     | null: false |
+| address        | string     | null: false |
+| building       | string     |
+| tel            | string     | null: false |
+| buy            | references | null: false, foreign_key: true |
 
 ### Association
 
