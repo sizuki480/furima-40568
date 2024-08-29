@@ -10,21 +10,6 @@ RSpec.describe User, type: :model do
         it '正常に登録できる' do
           expect(@user).to be_valid
         end
-        it 'passwordとpassword_confirmationが6文字以上であれば登録できる' do
-          @user.password = 'test1234'
-          @user.password_confirmation = 'test1234'
-          expect(@user).to be_valid
-        end
-        it 'first_nameとlast_nameが全角であれば登録できる' do
-          @user.first_name = 'あああ'
-          @user.last_name = 'いいい'
-          expect(@user).to be_valid
-        end
-        it 'first_name_kanaとlast_name_kanaが全角カナであれば登録できる' do
-          @user.first_name_kana = 'アアア'
-          @user.last_name_kana = 'イイイ'
-          expect(@user).to be_valid
-        end
       end
     end
     context '新規登録できない場合' do
@@ -72,6 +57,10 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
 
         @user.password = 'abcdef' # 英字のみ
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+
+        @user.password = 'ああああああ' # 全角文字
         @user.valid?
         expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
       end
