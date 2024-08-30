@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+  has_one_attached :image
+
   # | name             | string     | null: false |
   # | explanation      | text       | null: false |
   # | category_id      | integer    | null: false |
