@@ -1,6 +1,12 @@
 class Item < ApplicationRecord
   has_one_attached :image
 
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :category, :situation, :shipping_pay, :shipping_area, :shipping_time
+
+  validates :shipping_area_id, numericality: { other_than: 1 }
+  validates :shipping_area_id, numericality: { other_than: 1, message: "can't be blank" }
+
   # | name             | string     | null: false |
   # | explanation      | text       | null: false |
   # | category_id      | integer    | null: false |
