@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   #TOPページ設定
   root to: "items#index"
-  resources :items, only: [:new]
+  resources :items, only: [:new, :create]
 
 
 end

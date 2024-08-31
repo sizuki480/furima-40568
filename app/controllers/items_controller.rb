@@ -5,11 +5,32 @@ class ItemsController < ApplicationController
   end
 
   def new
+    @item = Item.new
+  end
+
+  def create
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
 
   def item_params
-    params.require(:item).permit(:shipping_area_id)
+    params.require(:item).permit(:name, :explanation, :category_id, :situation_id, :shipping_pay_id, :shipping_area_id,
+                                 :shipping_time_id, :price, :image).merge(user_id: current_user.id)
   end
 end
+
+# | name             | string     | null: false |
+# | explanation      | text       | null: false |
+# | category_id      | integer    | null: false |
+# | situation_id     | integer    | null: false |
+# | shipping_pay_id  | integer    | null: false |
+# | shipping_area_id | integer    | null: false |
+# | shipping_time_id | integer    | null: false |
+# | price            | integer    | null: false |
+# | user             | references | null: false, foreign_key: true |
