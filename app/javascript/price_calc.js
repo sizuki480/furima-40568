@@ -1,7 +1,5 @@
 const price = () => {
 
-  window.addEventListener("load", () => {
-
     // 入力金額を取得
     const UnitPrice = document.getElementById('item-price');
 
@@ -15,9 +13,6 @@ const price = () => {
       const profit = document.getElementById('profit');
       profit.innerHTML = inputValue - Math.floor(inputValue / 10);;
     });
-
-  });
-
 };
 
 window.addEventListener("turbo:load", price);
