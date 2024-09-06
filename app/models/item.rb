@@ -1,6 +1,8 @@
 class Item < ApplicationRecord
+  # アソシエーション
   has_one_attached :image
   belongs_to :user
+  has_many :buys
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :category
@@ -21,6 +23,9 @@ class Item < ApplicationRecord
   validates :image, presence: true
 end
 
+# ## itemsテーブル
+# | Column           | Type       | Options     |
+# | ---------------- | ---------- | ----------- |
 # | name             | string     | null: false |
 # | explanation      | text       | null: false |
 # | category_id      | integer    | null: false |
@@ -30,3 +35,10 @@ end
 # | shipping_time_id | integer    | null: false |
 # | price            | integer    | null: false |
 # | user             | references | null: false, foreign_key: true |
+
+# <!-- ※イメージはActiveStorageで実装するため含まない -->
+
+# ### Association
+
+# - belongs_to :user
+# - has_one :buy
