@@ -1,22 +1,31 @@
 class BuyShipping
   include ActiveModel::Model
-  attr_accessor :item, :user, :post_code, :shipping_area_id, :city, :addres, :building, :tel, :buy
+  attr_accessor :item_id, :user_id, :post_code, :shipping_area_id, :city, :address, :building, :tel, :buy_id
+
+
+  # バリデーション
+  with_options presence: true do
+    validates :item_id # belongs_toの置き換え
+    validates :user_id # belongs_toの置き換え
+    validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
+    validates :shipping_area_id, numericality: { other_than: 1, message: "can't be blank" }
+    validates :city
+    validates :tel, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Must be 10 or 11 digits' }
+  end
+
+
+  # 保存処理
+  def save
+    # 購入情報を保存し、変数buyに代入する
+    buy = Buy.create(item_id: item_id, user_id: user_id)
+    Shipping.create(post_code: post_code, shipping_area_id: shipping_area_id, city: city, address: address, building: building, tel: tel, buy_id: buy.id)
+  end
 end
 
-# バリデーション
-with_options presence: true do
-  validates :item_id # belongs_toの置き換え
-  validates :user_id # belongs_toの置き換え
-  validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
-  validates :shipping_area, numericality: { other_than: 1, message: "can't be blank" }
-  validates :city
-  validates :tel
-  validates :buy_id # belongs_toの置き換え
-end
 
-# 保存処理
-def save
-end
+
+
+
 
 # ## buysテーブル
 # | Column    | Type       | Options     |
