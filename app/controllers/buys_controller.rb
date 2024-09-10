@@ -1,9 +1,19 @@
 class BuysController < ApplicationController
   before_action :set_item, only: [:index, :create]
+  before_action :authenticate_user!, except: [:index, :create]
 
 
   def index
-    @buy_shipping = BuyShipping.new
+    ##出品者ならトップへ遷移
+    if current_user == @item.user
+      redirect_to root_path
+    elsif 
+      #購入済みならトップへ遷移
+      @item.buy.present? 
+      redirect_to root_path
+    else
+      @buy_shipping = BuyShipping.new
+    end
   end
 
   def create
