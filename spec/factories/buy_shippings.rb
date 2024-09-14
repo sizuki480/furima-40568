@@ -6,8 +6,6 @@ FactoryBot.define do
     address { '豊島区1-2' }
     building { '東京ハイツ' }
     tel { '12345678901' }
-    user_id { Faker::Number.non_zero_digit }
-    item_id { Faker::Number.non_zero_digit }
     token {"tok_abcdefghijk00000000000000000"}
   end
 end
