@@ -20,14 +20,7 @@ class BuysController < ApplicationController
     # binding.pry
     @buy_shipping = BuyShipping.new(buy_params)
     if @buy_shipping.valid?
-
-      Payjp.api_key = "sk_test_76224b28a49e961863b46678"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
-      Payjp::Charge.create(
-        amount: @item.price,  # 商品の値段
-        card: buy_params[:token],    # カードトークン
-        currency: 'jpy'                 # 通貨の種類（日本円）
-      )
-
+      pay_item
       @buy_shipping.save
       redirect_to root_path
     else
@@ -46,6 +39,15 @@ end
 
 def set_item
   @item = Item.find(params[:item_id])
+end
+
+def pay_item
+  Payjp.api_key = "sk_test_76224b28a49e961863b46678"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+  Payjp::Charge.create(
+    amount: @item.price,  # 商品の値段
+    card: buy_params[:token],    # カードトークン
+    currency: 'jpy'                 # 通貨の種類（日本円）
+  )
 end
 
 
