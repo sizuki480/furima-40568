@@ -1,7 +1,6 @@
 class BuyShipping
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :post_code, :shipping_area_id, :city, :address, :building, :tel, :buy_id
-
+  attr_accessor :item_id, :user_id, :post_code, :shipping_area_id, :city, :address, :building, :tel, :buy_id, :token
 
   # バリデーション
   with_options presence: true do
@@ -12,6 +11,7 @@ class BuyShipping
     validates :city
     validates :address
     validates :tel, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Must be 10 or 11 digits' }
+    validates :token
   end
 
 
