@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  #TOPページ設定
-  root to: "items#index"
-  resources :items #, only: [:new, :create, :show, :edit, :update, :destroy]
 
+  root to: "items#index"
+  resources :items do
+    resources :buys, only: [:index, :create]
+  end
 
 end

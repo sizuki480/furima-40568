@@ -1,6 +1,9 @@
 class Item < ApplicationRecord
+  # アソシエーション
   has_one_attached :image
   belongs_to :user
+  has_one :buy
+  # has_many :buys
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :category
@@ -9,6 +12,7 @@ class Item < ApplicationRecord
   belongs_to_active_hash :shipping_area
   belongs_to_active_hash :shipping_time
 
+  # バリデーション
   validates :name, presence: true
   validates :explanation, presence: true
   validates :category_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
@@ -21,6 +25,9 @@ class Item < ApplicationRecord
   validates :image, presence: true
 end
 
+# ## itemsテーブル
+# | Column           | Type       | Options     |
+# | ---------------- | ---------- | ----------- |
 # | name             | string     | null: false |
 # | explanation      | text       | null: false |
 # | category_id      | integer    | null: false |
@@ -30,3 +37,10 @@ end
 # | shipping_time_id | integer    | null: false |
 # | price            | integer    | null: false |
 # | user             | references | null: false, foreign_key: true |
+
+# <!-- ※イメージはActiveStorageで実装するため含まない -->
+
+# ### Association
+
+# - belongs_to :user
+# - has_one :buy
